@@ -10,6 +10,13 @@ When method get
 Then status 200
 And match response == {id: '#string', name: '#string', secretIdentity: '#string'}
 
+
+Scenario: Get not found
+
+Given path 'avengers', 'avenger-not-found'
+When method get
+Then status 404
+
 Scenario: Creates a new Avengers
 
 Given path 'avengers'
@@ -44,6 +51,13 @@ Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
 And request {name: 'Captain America'}
 When method put
 Then status 400
+
+Scenario: Update Avenger not found
+
+Given path 'avengers', 'zzzz-bbbb-cccc-dddd'
+And request {name: 'Zé porrinha', "secretIdentity": "Zé porrinhas"}
+When method put
+Then status 404
 
 
 
