@@ -16,12 +16,12 @@ public class UpdateAvengersHandler implements RequestHandler<Avenger, HandlerRes
 	public HandlerResponse handleRequest(final Avenger avenger, final Context context) {
 		Avenger updateAvenger = null;
 		
-		context.getLogger().log(" [#] - Searching avenger by id ");
+		context.getLogger().log("  [#] - Searching avenger by id ");
 		
 		if (dao.search(avenger.getId()) != null) {
 			
 			
-			context.getLogger().log(" [#] - Avenger Found, updating ");
+			context.getLogger().log(" [#] -  AvengerFound, updating ");
 			
 			updateAvenger = dao.update(avenger);
 	          
@@ -30,6 +30,7 @@ public class UpdateAvengersHandler implements RequestHandler<Avenger, HandlerRes
 			throw new AvengerNotFoundException("[NotFound] - Avenger id: "
                     + avenger.getId());
 		}
+		
 		
 		final HandlerResponse response = HandlerResponse.builder().setObjectBody(avenger).build();
 			

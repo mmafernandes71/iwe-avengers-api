@@ -38,6 +38,11 @@ Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
 When method delete
 Then status 204
 
+Scenario: Attempt to Delete a non-existent Avenger
+Given path 'avengers', 'avenger-not-found'
+When method delete
+Then status 404
+
 Scenario: Update Avenger by Id
 
 Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
