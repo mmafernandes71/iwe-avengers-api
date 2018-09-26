@@ -23,7 +23,7 @@ public class UpdateAvengersHandler implements RequestHandler<Avenger, HandlerRes
 			
 			context.getLogger().log(" [#] -  AvengerFound, updating ");
 			
-			updateAvenger = dao.update(avenger);
+			updateAvenger = dao.create(avenger);
 	          
 	          context.getLogger().log(" [#] - Sucesso Update : ");
 		} else {

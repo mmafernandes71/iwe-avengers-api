@@ -3,14 +3,6 @@ Feature: Perform integrated tests on the Avengers registration API
 Background:
 * url 'https://u2eo5hetx5.execute-api.us-east-1.amazonaws.com/dev/'
 
-Scenario: Get Avenger by Id
-
-Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
-When method get
-Then status 200
-And match response == {id: '#string', name: '#string', secretIdentity: '#string'}
-
-
 Scenario: Get not found
 
 Given path 'avengers', 'avenger-not-found'
@@ -23,7 +15,14 @@ Given path 'avengers'
 And request {name: 'Captain America', secretIdentity: 'Steve Rogrs'}
 When method post
 Then status 201
-And match response == {id: '#string', name: '#string', secretIdentity: '#string'}
+And match response == {id: '#string', name: 'Captain America', secretIdentity: 'Steve Rogrs'}
+
+* def savedAvenger = response
+
+Given path 'avengers', savedAvenger.id
+When method get
+Then status 200
+And match response $ == savedAvenger
 
 Scenario: Creates a new avenger without the required data
 
