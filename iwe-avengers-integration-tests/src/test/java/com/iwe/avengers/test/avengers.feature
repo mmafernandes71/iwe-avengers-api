@@ -31,23 +31,49 @@ And request {name: 'Captain America'}
 When method post
 Then status 400
 
-Scenario: Delete Avenger by Id
-
-Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
-When method delete
-Then status 204
-
 Scenario: Attempt to Delete a non-existent Avenger
 Given path 'avengers', 'avenger-not-found'
 When method delete
 Then status 404
 
-Scenario: Update Avenger by Id
+Scenario:  Delete Avenger by Id 
 
-Given path 'avengers', 'aaaa-bbbb-cccc-dddd'
-And request {name: 'Captain America', "secretIdentity": "Steve Rogers"}
+Given path 'avengers'
+And request {name: 'Super Miguel', secretIdentity: 'Super Miguel'}
+When method post
+Then status 201
+And match response == {id: '#string', name: 'Super Miguel', secretIdentity: 'Super Miguel'}
+
+* def savedAvenger = response
+
+Given path 'avengers', savedAvenger.id
+When method delete
+Then status 204
+
+Given path 'avengers', savedAvenger.id
+When method get
+Then status 404
+
+
+Scenario: Update the Avenger data
+
+Given path 'avengers'
+And request {name: 'Super Animal', secretIdentity: 'Super Animal'}
+When method post
+Then status 201
+And match response == {id: '#string', name: 'Super Animal', secretIdentity: 'Super Animal'}
+
+* def updatedAvenger = response
+
+Given path 'avengers', updatedAvenger.id
+And request {name: name: 'Super PET'}
+When method put
+Then status 400
+
+Given path 'avengers', updatedAvenger.id
 When method get
 Then status 200
+And match response $ == updatedAvenger
 
 Scenario: Update Avenger by Id (Path parameter)
 
