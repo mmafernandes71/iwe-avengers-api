@@ -69,6 +69,7 @@ When method delete
 Then status 204
 
 Given path 'avengers', savedAvenger.id
+And header Authorization = 'Bearer ' + token
 When method get
 Then status 404
 
