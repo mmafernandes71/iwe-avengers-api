@@ -3,6 +3,16 @@ Feature: Perform integrated tests on the Avengers registration API
 Background:
 * url 'https://u2eo5hetx5.execute-api.us-east-1.amazonaws.com/dev/'
 
+ * def getToken =
+"""
+function() {
+ var TokenGenerator = Java.type('com.iwe.avengers.test.authorization.TokenGenerator');
+ var sg = new TokenGenerator();
+ return sg.getToken();
+}
+"""
+* def token = call getToken
+
 Scenario: Should return non-authenticated access
 
 Given path 'avengers', 'anyid'
@@ -12,6 +22,7 @@ Then status 401
 Scenario: Get not found
 
 Given path 'avengers', 'avenger-not-found'
+And header Authorization = 'Bearer ' + token
 When method get
 Then status 404
 
@@ -26,6 +37,7 @@ And match response == {id: '#string', name: 'Captain America', secretIdentity: '
 * def savedAvenger = response
 
 Given path 'avengers', savedAvenger.id
+And header Authorization = 'Bearer ' + token
 When method get
 Then status 200
 And match response $ == savedAvenger
