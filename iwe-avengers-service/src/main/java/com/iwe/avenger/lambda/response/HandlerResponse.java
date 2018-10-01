@@ -38,6 +38,7 @@ public class HandlerResponse {
 		return isBase64Encoded;
 	}
 	
+	
 
 	public static Builder builder() {
 		return new Builder();
