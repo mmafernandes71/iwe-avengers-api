@@ -49,6 +49,7 @@ public class Avenger {
 	public String getSecretIdentity() {
 		return secretIdentity;
 	}
+	
 
 	public void setSecretIdentity(String secretIdentity) {
 		this.secretIdentity = secretIdentity;
