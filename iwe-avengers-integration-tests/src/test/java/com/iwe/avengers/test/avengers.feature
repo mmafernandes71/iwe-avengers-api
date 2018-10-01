@@ -90,6 +90,7 @@ When method put
 Then status 400
 
 Given path 'avengers', updatedAvenger.id
+And header Authorization = 'Bearer ' + token
 When method get
 Then status 200
 And match response $ == updatedAvenger
