@@ -49,7 +49,7 @@ And request {name: 'Captain America'}
 When method post
 Then status 400
 
-Scenario: Attempt to Delete a non-existent Avenger
+Scenario: Attempt to Delete a non-existent  Avenger
 Given path 'avengers', 'avenger-not-found'
 When method delete
 Then status 404
